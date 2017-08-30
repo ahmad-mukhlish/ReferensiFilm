@@ -13,7 +13,7 @@ public class Film {
     private float mVote_average;
     private String mRelease_date;
 
-    public static final String rootImagePath = "http://image.tmdb.org/t/p/w185/" ;
+    public static final String rootImagePath = "http://image.tmdb.org/t/p/w154/" ;
 
     public Film(String title, String overview, String poster_path, String backdrop_path, float vote_average, String release_date) {
 

@@ -33,21 +33,26 @@ public class FilmListAdapter extends ArrayAdapter<Film> {
     public View getView(int position, @Nullable View listItemView, @NonNull ViewGroup parent) {
 
         if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_qu,parent,false) ;
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_qu, parent, false);
         }
 
-        ImageView imageView = listItemView.findViewById(R.id.gambar) ;
-        TextView textView = listItemView.findViewById(R.id.judul) ;
-        RatingBar ratingBar = listItemView.findViewById(R.id.rating) ;
+        ImageView gambar = listItemView.findViewById(R.id.gambar);
+        TextView judul = listItemView.findViewById(R.id.judul);
+        RatingBar ratingBar = listItemView.findViewById(R.id.rating);
+        TextView ratingNumber = listItemView.findViewById(R.id.rating_number);
 
-        Film currentFilm = getItem(position) ;
+        Film currentFilm = getItem(position);
 
-        Picasso.with(getContext()).load(Film.rootImagePath+currentFilm.getmPoster_path()).into(imageView);
-//        textView.setText(""+);
+        Picasso.with(getContext()).
+                load(Film.rootImagePath + currentFilm.getmPoster_path()).
+                placeholder(R.drawable.film).
+                into(gambar);
 
+        judul.setText(currentFilm.getmTitle());
         ratingBar.setRating(currentFilm.getmVote_average());
+        ratingNumber.setText("(" + currentFilm.getmVote_average() + ")");
 
-        return listItemView ;
+        return listItemView;
     }
 
 

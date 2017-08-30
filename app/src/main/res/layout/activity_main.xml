@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.jomblo_terhormat.referensifilm.MainActivity">
-
     <ListView
+        android:divider="@color/colorAccent"
         android:id="@+id/list"
+        android:dividerHeight="1dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null"
-        android:dividerHeight="0dp"
         android:orientation="vertical" />
 
 
