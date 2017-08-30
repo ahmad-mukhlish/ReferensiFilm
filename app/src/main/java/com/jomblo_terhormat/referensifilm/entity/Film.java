@@ -10,10 +10,12 @@ public class Film {
     private String mOverview;
     private String mPoster_path;
     private String mBackdrop_path;
-    private double mVote_average;
+    private float mVote_average;
     private String mRelease_date;
 
-    public Film(String title, String overview, String poster_path, String backdrop_path, double vote_average, String release_date) {
+    public static final String rootImagePath = "http://image.tmdb.org/t/p/w185/" ;
+
+    public Film(String title, String overview, String poster_path, String backdrop_path, float vote_average, String release_date) {
 
         this.mTitle = title;
         this.mOverview = overview;
@@ -39,7 +41,7 @@ public class Film {
         return mBackdrop_path;
     }
 
-    public double getmVote_average() {
+    public float getmVote_average() {
         return mVote_average;
     }
 

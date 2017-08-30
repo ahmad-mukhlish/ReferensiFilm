@@ -126,7 +126,7 @@ public final class QueryUtils {
             return null;
         }
 
-        List<Film> listFilm = new ArrayList<Film>() ;
+        List<Film> listFilm = new ArrayList<Film>();
 
         try {
 
@@ -134,13 +134,18 @@ public final class QueryUtils {
             JSONArray results = root.getJSONArray("results");
             for (int i = 0; i < results.length(); i++) {
                 JSONObject filmData = results.getJSONObject(i);
-                String title = filmData.getString("title") ;
-                String overview = filmData.getString("overview") ;
-                String poster_path = filmData.getString("poster_path") ;
-                String backdrop_path = filmData.getString("backdrop_path") ;
-                double vote_average = filmData.getDouble("vote_average") ;
-                String release_date = filmData.getString("release_date") ;
-                Film film = new Film(title,overview,poster_path,backdrop_path,vote_average,release_date) ;
+                String title = filmData.getString("title");
+                String overview = filmData.getString("overview");
+                String poster_path = filmData.getString("poster_path");
+                String backdrop_path = filmData.getString("backdrop_path");
+                String vote_average = "" + filmData.getDouble("vote_average");
+                String release_date = filmData.getString("release_date");
+                Film film =
+                        new Film(title,
+                                overview,
+                                poster_path,
+                                backdrop_path,
+                                Float.parseFloat(vote_average), release_date);
                 listFilm.add(film);
             }
 
