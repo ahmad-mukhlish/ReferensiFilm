@@ -73,10 +73,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/rating_number"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginRight="6dp"
             android:layout_marginTop="8dp"
             android:textColor="@color/colorAccent"
-            android:layout_marginRight="6dp"
             android:textSize="16sp" />
 
 

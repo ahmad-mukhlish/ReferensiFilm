@@ -6,6 +6,7 @@ package com.jomblo_terhormat.referensifilm.entity;
 
 public class Film {
 
+
     private String mTitle;
     private String mOverview;
     private String mPoster_path;
@@ -13,8 +14,12 @@ public class Film {
     private float mVote_average;
     private String mRelease_date;
 
-    public static final String rootImagePathPoster = "http://image.tmdb.org/t/p/w154/" ;
-    public static final String rootImagePathDetail = "http://image.tmdb.org/t/p/w780/" ;
+    public static final String rootImagePathPoster = "http://image.tmdb.org/t/p/w154/";
+    public static final String rootImagePathDetail = "http://image.tmdb.org/t/p/w780/";
+
+    public static final String POPULAR = "https://api.themoviedb.org/3/movie/popular?api_key=459d687b181bb31b7f514ca0a00e01c8";
+    public static final String TOP_RATED = "https://api.themoviedb.org/3/movie/top_rated?api_key=459d687b181bb31b7f514ca0a00e01c8";
+    public static final String UPCOMING = "https://api.themoviedb.org/3/movie/upcoming?api_key=459d687b181bb31b7f514ca0a00e01c8";
 
     public Film(String title, String overview, String poster_path, String backdrop_path, float vote_average, String release_date) {
 

@@ -19,8 +19,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Film>> {
 
-    public static final String API_KEY = "459d687b181bb31b7f514ca0a00e01c8";
-    public static final String LINK = "https://api.themoviedb.org/3/movie/popular?api_key=459d687b181bb31b7f514ca0a00e01c8";
     private static final int LOADER_ID = 54;
     private FilmListAdapter filmListAdapter;
 
@@ -53,11 +51,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<Film>> onCreateLoader(int i, Bundle bundle) {
-        return new FilmLoader(this,LINK) ;
+        return new FilmLoader(this,Film.TOP_RATED) ;
     }
 
     @Override
     public void onLoadFinished(Loader<List<Film>> loader, List<Film> films) {
+        filmListAdapter.clear();
         filmListAdapter.addAll(films);
     }
 
