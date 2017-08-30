@@ -139,7 +139,7 @@ public final class QueryUtils {
                 String poster_path = filmData.getString("poster_path") ;
                 String backdrop_path = filmData.getString("backdrop_path") ;
                 double vote_average = filmData.getDouble("vote_average") ;
-                String release_date = filmData.getString("release date") ;
+                String release_date = filmData.getString("release_date") ;
                 Film film = new Film(title,overview,poster_path,backdrop_path,vote_average,release_date) ;
                 listFilm.add(film);
             }

@@ -47,4 +47,15 @@ public class Film {
         return mRelease_date;
     }
 
+    @Override
+    public String toString() {
+        return "Film{" +
+                "mTitle='" + mTitle + '\'' +
+                ", mOverview='" + mOverview + '\'' +
+                ", mPoster_path='" + mPoster_path + '\'' +
+                ", mBackdrop_path='" + mBackdrop_path + '\'' +
+                ", mVote_average=" + mVote_average +
+                ", mRelease_date='" + mRelease_date + '\'' +
+                '}';
+    }
 }
