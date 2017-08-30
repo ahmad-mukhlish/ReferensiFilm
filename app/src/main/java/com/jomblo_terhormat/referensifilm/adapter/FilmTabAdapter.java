@@ -17,11 +17,11 @@ import java.util.List;
 
 public class FilmTabAdapter extends FragmentStatePagerAdapter {
 
-    public static final int TOTAL_FRAGMENT = 4;
+    public static final int TOTAL_FRAGMENT = 3;
     String titles[] = new String[TOTAL_FRAGMENT];
-    private List<Film> list;
+    private List<List<Film>> list;
 
-    public FilmTabAdapter(FragmentManager fm, String[] titles, List<Film> list) {
+    public FilmTabAdapter(FragmentManager fm, String[] titles, List<List<Film>> list) {
         super(fm);
         this.titles = titles;
         this.list = list;
@@ -46,7 +46,7 @@ public class FilmTabAdapter extends FragmentStatePagerAdapter {
 //            return null;
 
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("key", (ArrayList<Film>) list);
+        bundle.putParcelableArrayList("key", (ArrayList<Film>) list.get(position));
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -56,7 +56,7 @@ public class FilmTabAdapter extends FragmentStatePagerAdapter {
      */
     @Override
     public int getCount() {
-        return 4;
+        return TOTAL_FRAGMENT;
     }
 
     @Override

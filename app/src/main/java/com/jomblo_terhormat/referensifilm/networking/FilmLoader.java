@@ -6,15 +6,16 @@ import android.util.Log;
 
 import com.jomblo_terhormat.referensifilm.entity.Film;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class FilmLoader extends AsyncTaskLoader<List<Film>> {
+public class FilmLoader extends AsyncTaskLoader<List<List<Film>>> {
 
     private static final String LOG_TAG = FilmLoader.class.getName();
-    private String mURl;
+    private String mURl[];
 
 
-    public FilmLoader(Context context, String URl) {
+    public FilmLoader(Context context, String[] URl) {
         super(context);
         this.mURl = URl;
     }
@@ -31,12 +32,19 @@ public class FilmLoader extends AsyncTaskLoader<List<Film>> {
     }
 
     @Override
-    public List<Film> loadInBackground() {
+    public List<List<Film>> loadInBackground() {
         if (mURl == null) {
             return null;
         }
         Log.v(LOG_TAG, "Loading Background");
-        return QueryUtils.fetchData(mURl);
 
+        List<List<Film>> lists = new ArrayList<>() ;
+
+//        lists.add(QueryUtils.fetchData(mURl[0])) ;
+//        lists.add(QueryUtils.fetchData(mURl[1])) ;
+        lists.add(QueryUtils.fetchData(mURl[2])) ;
+
+
+        return lists ;
     }
 }

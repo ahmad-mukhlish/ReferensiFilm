@@ -14,7 +14,7 @@ import com.jomblo_terhormat.referensifilm.networking.FilmLoader;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Film>> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<List<Film>>> {
 
     private static final int LOADER_ID = 54;
     FilmTabAdapter adapter;
@@ -31,17 +31,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
     @Override
-    public Loader<List<Film>> onCreateLoader(int i, Bundle bundle) {
-        return new FilmLoader(this, Film.TOP_RATED);
+    public Loader<List<List<Film>>> onCreateLoader(int i, Bundle bundle) {
+        return new FilmLoader(this, setLinks());
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Film>> loader, List<Film> films) {
+    public void onLoadFinished(Loader<List<List<Film>>> loader, List<List<Film>> films) {
         updateUI(films);
     }
 
     @Override
-    public void onLoaderReset(Loader<List<Film>> loader) {
+    public void onLoaderReset(Loader<List<List<Film>>> loader) {
     }
 
     private String[] setTitle() {
@@ -49,15 +49,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         titles[0] = "POPULAR";
         titles[1] = "TOP RATED";
         titles[2] = "COMING SOON";
-        titles[3] = "ABOUT";
+//        titles[3] = "ABOUT";
         return titles;
     }
 
-    private void updateUI(List<Film> list) {
+    private void updateUI(List<List<Film>> list) {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         adapter = new FilmTabAdapter(getSupportFragmentManager(), setTitle(), list);
         viewPager.setAdapter(adapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private String[] setLinks(){
+        String[] link = new String[3] ;
+        link[1] = Film.POPULAR ;
+        link[2] = Film.TOP_RATED ;
+        link[3] = Film.UPCOMING ;
+        return link ;
     }
 }
