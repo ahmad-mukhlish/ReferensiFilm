@@ -1,27 +1,22 @@
 package com.jomblo_terhormat.referensifilm.activity;
 
 import android.app.LoaderManager;
-import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.jomblo_terhormat.referensifilm.R;
-import com.jomblo_terhormat.referensifilm.adapter.FilmListAdapter;
+import com.jomblo_terhormat.referensifilm.adapter.FilmTabAdapter;
 import com.jomblo_terhormat.referensifilm.entity.Film;
 import com.jomblo_terhormat.referensifilm.networking.FilmLoader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Film>> {
 
     private static final int LOADER_ID = 54;
-    private FilmListAdapter filmListAdapter;
-
 
 
     @Override
@@ -30,22 +25,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(LOADER_ID, null, this);
-        ListView listView = (ListView) findViewById(R.id.list);
-        filmListAdapter = new FilmListAdapter(this,new ArrayList<Film>());
-        listView.setAdapter(filmListAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Film clickedFilm = filmListAdapter.getItem(position) ;
-                Intent intent = new Intent(MainActivity.this,DetailActivity.class) ;
-                intent.putExtra("gambar",clickedFilm.getmBackdrop_path()) ;
-                intent.putExtra("judul",clickedFilm.getmTitle()) ;
-                intent.putExtra("deskripsi",clickedFilm.getmOverview()) ;
-                intent.putExtra("tanggal",clickedFilm.getmRelease_date()) ;
-                intent.putExtra("rating",clickedFilm.getmVote_average()) ;
-                startActivity(intent);
-            }
-        });
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        FilmTabAdapter adapter = new FilmTabAdapter(getSupportFragmentManager(), setTitle());
+        viewPager.setAdapter(adapter);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 
@@ -56,12 +41,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<Film>> loader, List<Film> films) {
-        filmListAdapter.clear();
-        filmListAdapter.addAll(films);
+//        filmListAdapter.clear();
+//        filmListAdapter.addAll(films);
     }
 
     @Override
     public void onLoaderReset(Loader<List<Film>> loader) {
-        filmListAdapter.clear();
+//        filmListAdapter.clear();
+    }
+
+    private String[] setTitle() {
+        String titles[] = new String[FilmTabAdapter.TOTAL_FRAGMENT];
+        titles[0] = "POPULAR";
+        titles[1] = "TOP RATED";
+        titles[2] = "COMING SOON";
+        titles[3] = "ABOUT";
+        return titles;
     }
 }

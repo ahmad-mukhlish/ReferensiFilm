@@ -3,4 +3,6 @@
     <color name="colorPrimary">#e66d11</color>
     <color name="colorPrimaryDark">#167c1f</color>
     <color name="colorAccent">#FFFFFF</color>
+    <color name="tab_text"> #A8A19E </color>
+
 </resources>
