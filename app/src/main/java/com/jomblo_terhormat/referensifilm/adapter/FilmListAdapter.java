@@ -44,7 +44,7 @@ public class FilmListAdapter extends ArrayAdapter<Film> {
         Film currentFilm = getItem(position);
 
         Picasso.with(getContext()).
-                load(Film.rootImagePath + currentFilm.getmPoster_path()).
+                load(Film.rootImagePathPoster + currentFilm.getmPoster_path()).
                 placeholder(R.drawable.film).
                 into(gambar);
 
