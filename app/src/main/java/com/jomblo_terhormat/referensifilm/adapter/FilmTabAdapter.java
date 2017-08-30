@@ -5,7 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.jomblo_terhormat.referensifilm.entity.Film;
 import com.jomblo_terhormat.referensifilm.fragment.FilmListFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by GOODWARE1 on 8/23/2017.
@@ -13,15 +17,14 @@ import com.jomblo_terhormat.referensifilm.fragment.FilmListFragment;
 
 public class FilmTabAdapter extends FragmentStatePagerAdapter {
 
-    public static final int TOTAL_FRAGMENT = 4 ;
+    public static final int TOTAL_FRAGMENT = 4;
     String titles[] = new String[TOTAL_FRAGMENT];
+    private List<Film> list;
 
-//    private List<Film> list;
-
-    public FilmTabAdapter(FragmentManager fm, String[] titles) {
+    public FilmTabAdapter(FragmentManager fm, String[] titles, List<Film> list) {
         super(fm);
         this.titles = titles;
-//        this.list = list ;
+        this.list = list;
     }
 
     /**
@@ -42,11 +45,10 @@ public class FilmTabAdapter extends FragmentStatePagerAdapter {
 //        else
 //            return null;
 
-        Bundle bundle = new Bundle() ;
-
-//        bundle.putParcelableArrayList("key", (ArrayList<Film>) list);
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("key", (ArrayList<Film>) list);
         fragment.setArguments(bundle);
-        return fragment ;
+        return fragment;
     }
 
     /**

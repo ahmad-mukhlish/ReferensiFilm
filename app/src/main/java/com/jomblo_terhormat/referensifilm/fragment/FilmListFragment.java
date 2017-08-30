@@ -15,7 +15,7 @@ import com.jomblo_terhormat.referensifilm.activity.DetailActivity;
 import com.jomblo_terhormat.referensifilm.adapter.FilmListAdapter;
 import com.jomblo_terhormat.referensifilm.entity.Film;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,10 +34,10 @@ public class FilmListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.film_list, container, false);
-
+        List<Film> films = getArguments().getParcelableArrayList("key") ;
 
         ListView listView = rootView.findViewById(R.id.list);
-        filmListAdapter = new FilmListAdapter(getContext(), new ArrayList<Film>());
+        filmListAdapter = new FilmListAdapter(getContext(), films);
         listView.setAdapter(filmListAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

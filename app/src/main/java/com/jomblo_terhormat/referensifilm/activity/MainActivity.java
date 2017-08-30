@@ -17,7 +17,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Film>> {
 
     private static final int LOADER_ID = 54;
-
+    FilmTabAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,28 +26,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(LOADER_ID, null, this);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        FilmTabAdapter adapter = new FilmTabAdapter(getSupportFragmentManager(), setTitle());
-        viewPager.setAdapter(adapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(viewPager);
+
     }
 
 
     @Override
     public Loader<List<Film>> onCreateLoader(int i, Bundle bundle) {
-        return new FilmLoader(this,Film.TOP_RATED) ;
+        return new FilmLoader(this, Film.TOP_RATED);
     }
 
     @Override
     public void onLoadFinished(Loader<List<Film>> loader, List<Film> films) {
-//        filmListAdapter.clear();
-//        filmListAdapter.addAll(films);
+        updateUI(films);
     }
 
     @Override
     public void onLoaderReset(Loader<List<Film>> loader) {
-//        filmListAdapter.clear();
     }
 
     private String[] setTitle() {
@@ -57,5 +51,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         titles[2] = "COMING SOON";
         titles[3] = "ABOUT";
         return titles;
+    }
+
+    private void updateUI(List<Film> list) {
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        adapter = new FilmTabAdapter(getSupportFragmentManager(), setTitle(), list);
+        viewPager.setAdapter(adapter);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

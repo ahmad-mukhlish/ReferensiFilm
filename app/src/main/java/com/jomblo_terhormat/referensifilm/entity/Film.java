@@ -1,10 +1,13 @@
 package com.jomblo_terhormat.referensifilm.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by GOODWARE1 on 8/30/2017.
  */
 
-public class Film {
+public class Film implements Parcelable {
 
 
     private String mTitle;
@@ -65,5 +68,15 @@ public class Film {
                 ", mVote_average=" + mVote_average +
                 ", mRelease_date='" + mRelease_date + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
     }
 }
