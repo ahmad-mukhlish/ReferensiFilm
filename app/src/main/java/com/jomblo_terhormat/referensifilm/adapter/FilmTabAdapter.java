@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.jomblo_terhormat.referensifilm.entity.Film;
-import com.jomblo_terhormat.referensifilm.fragment.AboutFragment;
 import com.jomblo_terhormat.referensifilm.fragment.FilmListFragment;
 
 import java.util.ArrayList;
@@ -18,8 +17,8 @@ import java.util.List;
 
 public class FilmTabAdapter extends FragmentStatePagerAdapter {
 
-    public static final int TOTAL_FRAGMENT = 4;
-    private String mTitles[] ;
+    public static final int TOTAL_FRAGMENT = 3;
+    private String mTitles[];
     private List<List<Film>> mLists;
 
     public FilmTabAdapter(FragmentManager fm, String[] titles, List<List<Film>> lists) {
@@ -33,14 +32,11 @@ public class FilmTabAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
 
         Fragment fragment;
-        if (position != 3) {
-            fragment = new FilmListFragment();
-            Bundle bundle = new Bundle();
-            bundle.putParcelableArrayList("key", (ArrayList<Film>) mLists.get(position));
-            fragment.setArguments(bundle);
-        } else {
-            fragment = new AboutFragment() ;
-        }
+        fragment = new FilmListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("key", (ArrayList<Film>) mLists.get(position));
+        fragment.setArguments(bundle);
+
         return fragment;
     }
 

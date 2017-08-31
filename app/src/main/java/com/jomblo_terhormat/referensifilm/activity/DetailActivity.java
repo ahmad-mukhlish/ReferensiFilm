@@ -35,11 +35,22 @@ public class DetailActivity extends AppCompatActivity {
         TextView deskripsi = (TextView) findViewById(R.id.deskripsi);
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rating);
 
+
         Picasso.with(this).
                 load(Film.ROOT_IMAGE_PATH_DETAIL + bundle.getString("gambar")).
                 placeholder(R.drawable.film)
                 .into(imageView);
+
+        if (bundle.get("gambar") == null) {
+            Picasso.with(this).
+                    load(Film.ROOT_IMAGE_PATH_POSTER + bundle.getString("gambar")).
+                    placeholder(R.drawable.film)
+                    .into(imageView);
+        }
+
         autoDirection(imageView, 80);
+
+
 
         judul.setText(bundle.getString("judul"));
         autoDirection(judul, 430);

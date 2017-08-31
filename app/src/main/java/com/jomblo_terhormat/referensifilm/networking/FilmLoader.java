@@ -4,6 +4,7 @@ import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.util.Log;
 
+import com.jomblo_terhormat.referensifilm.activity.MainActivity;
 import com.jomblo_terhormat.referensifilm.entity.Film;
 
 import java.util.ArrayList;
@@ -31,7 +32,8 @@ public class FilmLoader extends AsyncTaskLoader<List<List<Film>>> {
      */
     @Override
     protected void onStartLoading() {
-        forceLoad();
+        if (MainActivity.mFilms == null)
+            forceLoad();
         Log.v(LOG_TAG, "On Start Loading");
     }
 
@@ -42,13 +44,13 @@ public class FilmLoader extends AsyncTaskLoader<List<List<Film>>> {
         }
         Log.v(LOG_TAG, "Loading Background");
 
-        List<List<Film>> lists = new ArrayList<>() ;
+        List<List<Film>> lists = new ArrayList<>();
 
-        lists.add(QueryUtils.fetchData(mURl[0])) ;
-        lists.add(QueryUtils.fetchData(mURl[1])) ;
-        lists.add(QueryUtils.fetchData(mURl[2])) ;
+        lists.add(QueryUtils.fetchData(mURl[0]));
+        lists.add(QueryUtils.fetchData(mURl[1]));
+        lists.add(QueryUtils.fetchData(mURl[2]));
 
 
-        return lists ;
+        return lists;
     }
 }
