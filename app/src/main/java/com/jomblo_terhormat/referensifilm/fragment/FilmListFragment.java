@@ -32,7 +32,7 @@ public class FilmListFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.film_list, container, false);
         List<Film> films = getArguments().getParcelableArrayList("key");
@@ -50,6 +50,7 @@ public class FilmListFragment extends Fragment {
                 intent.putExtra("deskripsi", clickedFilm.getmOverview());
                 intent.putExtra("tanggal", clickedFilm.getmRelease_date());
                 intent.putExtra("rating", clickedFilm.getmVote_average());
+                intent.putExtra("cadangan", clickedFilm.getmPoster_path());
                 startActivity(intent);
             }
         });
