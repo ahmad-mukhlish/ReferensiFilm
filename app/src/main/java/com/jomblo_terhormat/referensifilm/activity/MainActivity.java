@@ -63,9 +63,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private String[] setLinks(){
         String[] link = new String[3] ;
-        link[1] = Film.POPULAR ;
-        link[2] = Film.TOP_RATED ;
-        link[3] = Film.UPCOMING ;
+        link[0] = Film.POPULAR ;
+        link[1] = Film.TOP_RATED ;
+        link[2] = Film.UPCOMING ;
         return link ;
     }
 }
