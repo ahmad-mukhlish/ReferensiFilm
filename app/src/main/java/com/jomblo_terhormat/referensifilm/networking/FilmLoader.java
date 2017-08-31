@@ -12,7 +12,7 @@ import java.util.List;
 public class FilmLoader extends AsyncTaskLoader<List<List<Film>>> {
 
     private static final String LOG_TAG = FilmLoader.class.getName();
-    private String mURl[];
+    private String mURl[] = new String[3];
 
 
     public FilmLoader(Context context, String[] URl) {
@@ -40,8 +40,8 @@ public class FilmLoader extends AsyncTaskLoader<List<List<Film>>> {
 
         List<List<Film>> lists = new ArrayList<>() ;
 
-//        lists.add(QueryUtils.fetchData(mURl[0])) ;
-//        lists.add(QueryUtils.fetchData(mURl[1])) ;
+        lists.add(QueryUtils.fetchData(mURl[0])) ;
+        lists.add(QueryUtils.fetchData(mURl[1])) ;
         lists.add(QueryUtils.fetchData(mURl[2])) ;
 
 
