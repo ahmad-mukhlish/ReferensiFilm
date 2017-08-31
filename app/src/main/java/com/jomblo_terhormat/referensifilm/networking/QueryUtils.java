@@ -27,16 +27,16 @@ import java.util.List;
  * Created by GOODWARE1 on 8/30/2017.
  */
 
-public final class QueryUtils {
+final class QueryUtils {
 
 
-    public static final String LOG_TAG = QueryUtils.class.getName();
+    private static final String LOG_TAG = QueryUtils.class.getName();
 
     private QueryUtils() {
     }
 
 
-    public static List<Film> fetchData(String link) {
+     static List<Film> fetchData(String link) {
 
         URL url = parseStringLinkToURL(link);
 
@@ -122,14 +122,14 @@ public final class QueryUtils {
     }
 
 
-    public static List<Film> extract(String jason) {
+    private static List<Film> extract(String jason) {
 
 
         if (TextUtils.isEmpty(jason)) {
             return null;
         }
 
-        List<Film> listFilm = new ArrayList<Film>();
+        List<Film> listFilm = new ArrayList<>();
 
         try {
 

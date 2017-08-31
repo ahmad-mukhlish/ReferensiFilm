@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.jomblo_terhormat.referensifilm.R;
 import com.jomblo_terhormat.referensifilm.adapter.FilmTabAdapter;
 import com.jomblo_terhormat.referensifilm.entity.Film;
 import com.jomblo_terhormat.referensifilm.networking.FilmLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +24,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<List<Film>>> {
 
     private static final int LOADER_ID = 54;
-    private FilmTabAdapter mFilmAdapter;
+    private int mSelectedTab ;
+    TabLayout tabLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoaderReset(Loader<List<List<Film>>> loader) {
+       updateUI(new ArrayList<List<Film>>());
     }
 
     private String[] setTitle() {
@@ -60,10 +65,27 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private void updateUI(List<List<Film>> list) {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        mFilmAdapter = new FilmTabAdapter(getSupportFragmentManager(), setTitle(), list);
-        viewPager.setAdapter(mFilmAdapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        FilmTabAdapter filmTabAdapter = new FilmTabAdapter(getSupportFragmentManager(), setTitle(), list);
+        viewPager.setAdapter(filmTabAdapter);
+        tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mSelectedTab = tab.getPosition() ;
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
 
     private String[] setLinks() {
@@ -72,5 +94,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         link[1] = Film.TOP_RATED;
         link[2] = Film.UPCOMING;
         return link;
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        TabLayout.Tab tab = tabLayout.getTabAt(mSelectedTab);
+        tab.select();
+        Log.v("apa","restart") ;
+
     }
 }
