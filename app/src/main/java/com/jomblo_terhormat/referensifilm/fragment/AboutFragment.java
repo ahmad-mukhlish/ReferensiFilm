@@ -10,8 +10,9 @@ import android.view.ViewGroup;
 import com.jomblo_terhormat.referensifilm.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by GOODWARE1 on 8/30/2017.
  */
+
 public class AboutFragment extends Fragment {
 
 

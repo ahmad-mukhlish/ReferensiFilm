@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Created by GOODWARE1 on 8/30/2017.
+ */
 
 public final class QueryUtils {
 

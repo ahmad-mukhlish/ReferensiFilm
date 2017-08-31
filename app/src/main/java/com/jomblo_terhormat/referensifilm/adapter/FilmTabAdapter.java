@@ -12,48 +12,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by GOODWARE1 on 8/23/2017.
+ * Created by GOODWARE1 on 8/30/2017.
  */
 
 public class FilmTabAdapter extends FragmentStatePagerAdapter {
 
     public static final int TOTAL_FRAGMENT = 3;
-    String titles[] = new String[TOTAL_FRAGMENT];
-    private List<List<Film>> list;
+    private String mTitles[] ; // =  new String[TOTAL_FRAGMENT];
+    private List<List<Film>> mLists;
 
-    public FilmTabAdapter(FragmentManager fm, String[] titles, List<List<Film>> list) {
+    public FilmTabAdapter(FragmentManager fm, String[] titles, List<List<Film>> lists) {
         super(fm);
-        this.titles = titles;
-        this.list = list;
+        this.mTitles = titles;
+        this.mLists = lists;
     }
 
-    /**
-     * Return the Fragment associated with a specified position.
-     *
-     * @param position
-     */
 
     @Override
     public Fragment getItem(int position) {
 
         Fragment fragment = new FilmListFragment();
-
-//        if (position == 0)
-//            fragment = new FirstFragment();
-//        else if (position == 1)
-//            fragment = new SecondFragment();
-//        else
-//            return null;
-
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("key", (ArrayList<Film>) list.get(position));
+        bundle.putParcelableArrayList("key", (ArrayList<Film>) mLists.get(position));
         fragment.setArguments(bundle);
         return fragment;
     }
 
-    /**
-     * Return the number of views available.
-     */
+
     @Override
     public int getCount() {
         return TOTAL_FRAGMENT;
@@ -61,7 +46,7 @@ public class FilmTabAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles[position];
+        return mTitles[position];
     }
 
 }

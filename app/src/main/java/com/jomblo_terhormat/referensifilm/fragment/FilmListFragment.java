@@ -18,15 +18,16 @@ import com.jomblo_terhormat.referensifilm.entity.Film;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by GOODWARE1 on 8/30/2017.
  */
+
 public class FilmListFragment extends Fragment {
 
-    private FilmListAdapter filmListAdapter;
+
+    private FilmListAdapter mFilmListAdapter;
 
 
     public FilmListFragment() {
-        // Required empty public constructor
     }
 
 
@@ -34,15 +35,15 @@ public class FilmListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.film_list, container, false);
-        List<Film> films = getArguments().getParcelableArrayList("key") ;
+        List<Film> films = getArguments().getParcelableArrayList("key");
 
         ListView listView = rootView.findViewById(R.id.list);
-        filmListAdapter = new FilmListAdapter(getContext(), films);
-        listView.setAdapter(filmListAdapter);
+        mFilmListAdapter = new FilmListAdapter(getContext(), films);
+        listView.setAdapter(mFilmListAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Film clickedFilm = filmListAdapter.getItem(position);
+                Film clickedFilm = mFilmListAdapter.getItem(position);
                 Intent intent = new Intent(getContext(), DetailActivity.class);
                 intent.putExtra("gambar", clickedFilm.getmBackdrop_path());
                 intent.putExtra("judul", clickedFilm.getmTitle());

@@ -14,10 +14,15 @@ import com.jomblo_terhormat.referensifilm.networking.FilmLoader;
 
 import java.util.List;
 
+/**
+ * Created by GOODWARE1 on 8/30/2017.
+ */
+
+
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<List<Film>>> {
 
     private static final int LOADER_ID = 54;
-    FilmTabAdapter adapter;
+    private FilmTabAdapter mFilmAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,17 +60,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private void updateUI(List<List<Film>> list) {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        adapter = new FilmTabAdapter(getSupportFragmentManager(), setTitle(), list);
-        viewPager.setAdapter(adapter);
+        mFilmAdapter = new FilmTabAdapter(getSupportFragmentManager(), setTitle(), list);
+        viewPager.setAdapter(mFilmAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private String[] setLinks(){
-        String[] link = new String[3] ;
-        link[0] = Film.POPULAR ;
-        link[1] = Film.TOP_RATED ;
-        link[2] = Film.UPCOMING ;
-        return link ;
+    private String[] setLinks() {
+        String[] link = new String[3];
+        link[0] = Film.POPULAR;
+        link[1] = Film.TOP_RATED;
+        link[2] = Film.UPCOMING;
+        return link;
     }
 }

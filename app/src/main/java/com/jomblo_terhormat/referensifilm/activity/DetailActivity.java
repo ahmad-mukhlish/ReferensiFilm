@@ -15,6 +15,11 @@ import com.jomblo_terhormat.referensifilm.R;
 import com.jomblo_terhormat.referensifilm.entity.Film;
 import com.squareup.picasso.Picasso;
 
+/**
+ * Created by GOODWARE1 on 8/30/2017.
+ */
+
+
 public class DetailActivity extends AppCompatActivity {
 
     @Override
@@ -31,7 +36,7 @@ public class DetailActivity extends AppCompatActivity {
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rating);
 
         Picasso.with(this).
-                load(Film.rootImagePathDetail + bundle.getString("gambar")).
+                load(Film.ROOT_IMAGE_PATH_DETAIL + bundle.getString("gambar")).
                 placeholder(R.drawable.film)
                 .into(imageView);
         autoDirection(imageView, 80);

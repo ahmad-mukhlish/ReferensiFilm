@@ -9,6 +9,10 @@ import com.jomblo_terhormat.referensifilm.entity.Film;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by GOODWARE1 on 8/30/2017.
+ */
+
 public class FilmLoader extends AsyncTaskLoader<List<List<Film>>> {
 
     private static final String LOG_TAG = FilmLoader.class.getName();
