@@ -2,12 +2,112 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context="com.jomblo_terhormat.referensifilm.fragment.AboutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Program Referensi Film Sederhana"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Data by : The Movie Database (TMDb)"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/linknya"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/link"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/meh" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Ahmad Mukhlis Saputra"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/klikfb"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:autoLink="web"
+                android:background="@color/colorPrimaryDark"
+                android:clickable="true"
+                android:cursorVisible="true"
+                android:linksClickable="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/logofb" />
+
+            <ImageButton
+                android:id="@+id/klikgithub"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:autoLink="web"
+                android:background="@color/colorPrimaryDark"
+                android:clickable="true"
+                android:cursorVisible="true"
+                android:linksClickable="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/logogithub" />
+
+            <ImageButton
+                android:id="@+id/klikgplus"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:autoLink="web"
+                android:background="@color/colorPrimaryDark"
+                android:clickable="true"
+                android:cursorVisible="true"
+                android:linksClickable="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/logogplus" />
+
+
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>

@@ -12,7 +12,6 @@ import com.jomblo_terhormat.referensifilm.adapter.FilmTabAdapter;
 import com.jomblo_terhormat.referensifilm.entity.Film;
 import com.jomblo_terhormat.referensifilm.networking.FilmLoader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +22,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<List<Film>>> {
 
     private static final int LOADER_ID = 54;
-    private boolean mRestarted = false;
+    private List<List<Film>> mFilms = null;
 
 
     @Override
@@ -44,13 +43,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<List<Film>>> loader, List<List<Film>> films) {
-        if (!mRestarted)
-            updateUI(films);
+        if (mFilms == null) {
+            mFilms = films ;
+        }
+
+        updateUI(mFilms);
     }
 
     @Override
     public void onLoaderReset(Loader<List<List<Film>>> loader) {
-        updateUI(new ArrayList<List<Film>>());
     }
 
     private String[] setTitle() {
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         titles[0] = "POPULAR";
         titles[1] = "TOP RATED";
         titles[2] = "COMING SOON";
-//        titles[3] = "ABOUT";
+        titles[3] = "ABOUT";
         return titles;
     }
 
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onRestart() {
         super.onRestart();
-        mRestarted = true;
 
     }
 }
