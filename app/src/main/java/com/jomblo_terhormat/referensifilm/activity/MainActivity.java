@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.jomblo_terhormat.referensifilm.R;
 import com.jomblo_terhormat.referensifilm.adapter.FilmTabAdapter;
@@ -24,8 +23,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<List<Film>>> {
 
     private static final int LOADER_ID = 54;
-    private int mSelectedTab ;
-    TabLayout tabLayout;
+    private boolean mRestarted = false;
 
 
     @Override
@@ -46,12 +44,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<List<Film>>> loader, List<List<Film>> films) {
-        updateUI(films);
+        if (!mRestarted)
+            updateUI(films);
     }
 
     @Override
     public void onLoaderReset(Loader<List<List<Film>>> loader) {
-       updateUI(new ArrayList<List<Film>>());
+        updateUI(new ArrayList<List<Film>>());
     }
 
     private String[] setTitle() {
@@ -67,24 +66,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         FilmTabAdapter filmTabAdapter = new FilmTabAdapter(getSupportFragmentManager(), setTitle(), list);
         viewPager.setAdapter(filmTabAdapter);
-        tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mSelectedTab = tab.getPosition() ;
-            }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
 
     }
 
@@ -100,9 +84,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onRestart() {
         super.onRestart();
-        TabLayout.Tab tab = tabLayout.getTabAt(mSelectedTab);
-        tab.select();
-        Log.v("apa","restart") ;
+        mRestarted = true;
 
     }
 }
