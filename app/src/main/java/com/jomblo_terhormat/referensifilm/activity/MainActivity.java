@@ -31,8 +31,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final int LOADER_ID = 54;
     public static List<List<Film>> mFilms = null;
 
-    ConnectivityManager mConnectivityManager =
-            (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(LOADER_ID, null, this);
+
+        ConnectivityManager mConnectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
 
     }
