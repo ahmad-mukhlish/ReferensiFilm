@@ -1,10 +1,8 @@
 package com.jomblo_terhormat.referensifilm.activity;
 
 import android.app.LoaderManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -40,8 +38,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(LOADER_ID, null, this);
 
-        ConnectivityManager mConnectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
 
 
     }
@@ -57,8 +54,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<List<Film>>> loader, List<List<Film>> films) {
-        if (mFilms == null) // &&
-//         !restated)
+        if (mFilms == null)
         {
             Log.v("apa", "tercyduk");
             mFilms = films;
@@ -112,5 +108,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return super.onOptionsItemSelected(item);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mFilms = null;
+    }
 }
