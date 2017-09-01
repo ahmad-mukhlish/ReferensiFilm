@@ -1,16 +1,20 @@
 package com.jomblo_terhormat.referensifilm.activity;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.jomblo_terhormat.referensifilm.R;
 import com.jomblo_terhormat.referensifilm.adapter.FilmTabAdapter;
@@ -30,15 +34,27 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static List<List<Film>> mFilms = null;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LoaderManager loaderManager = getLoaderManager();
-        loaderManager.initLoader(LOADER_ID, null, this);
 
 
+        ConnectivityManager mConnectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = mConnectivityManager.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+        LinearLayout error = (LinearLayout) findViewById(R.id.error);
+        error.setVisibility(View.GONE);
+
+        if (isConnected) {
+            LoaderManager loaderManager = getLoaderManager();
+            loaderManager.initLoader(LOADER_ID, null, this);
+        } else {
+            error.setVisibility(View.VISIBLE);
+        }
 
 
     }
@@ -54,9 +70,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<List<Film>>> loader, List<List<Film>> films) {
-        if (mFilms == null)
-        {
-            Log.v("apa", "tercyduk");
+        if (mFilms == null) {
             mFilms = films;
         }
 
