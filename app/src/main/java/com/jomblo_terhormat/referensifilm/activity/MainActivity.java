@@ -1,8 +1,10 @@
 package com.jomblo_terhormat.referensifilm.activity;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -28,8 +30,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final int LOADER_ID = 54;
     public static List<List<Film>> mFilms = null;
-//    private boolean restated = false;
 
+    ConnectivityManager mConnectivityManager =
+            (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,9 +110,5 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    protected void onRestart() {
-//        restated = true ;
-//        super.onRestart();
-//    }
+
 }

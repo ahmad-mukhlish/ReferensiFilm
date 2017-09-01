@@ -2,18 +2,19 @@ package com.jomblo_terhormat.referensifilm.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.jomblo_terhormat.referensifilm.R;
 import com.jomblo_terhormat.referensifilm.entity.Film;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -29,28 +30,37 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         Bundle bundle = getIntent().getExtras();
 
-        ImageView imageView = (ImageView) findViewById(R.id.gambar);
+
         TextView judul = (TextView) findViewById(R.id.judul);
         TextView tanggal = (TextView) findViewById(R.id.tanggal);
         TextView rating = (TextView) findViewById(R.id.rating_number);
         TextView deskripsi = (TextView) findViewById(R.id.deskripsi);
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rating);
 
-        if (bundle.getString("gambar") != null) {
-            Picasso.with(this).
-                    load(Film.ROOT_IMAGE_PATH_DETAIL + bundle.getString("gambar")).
-                    placeholder(R.drawable.film)
-                    .into(imageView);
-        } else {
-            Picasso.with(this).
-                    load(Film.ROOT_IMAGE_PATH_POSTER + bundle.getString("cadangan")).
-                    placeholder(R.drawable.film)
-                    .into(imageView);
-            Log.v("kena", bundle.getString("gambar"));
+        final ImageView imageView = (ImageView) findViewById(R.id.gambar);
+        imageView.setVisibility(View.GONE);
 
-        }
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
-        autoDirection(imageView, 80);
+        Picasso.with(this).
+                load(Film.ROOT_IMAGE_PATH_DETAIL + bundle.getString("gambar")).
+                error(R.drawable.detail)
+                .into(imageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        progressBar.setVisibility(View.GONE);
+                        imageView.setVisibility(View.VISIBLE);
+                        autoDirection(imageView, 80);
+                    }
+
+                    @Override
+                    public void onError() {
+                        progressBar.setVisibility(View.GONE);
+                        autoDirection(imageView, 0);
+                        imageView.setVisibility(View.VISIBLE);
+                    }
+                });
 
 
         judul.setText(bundle.getString("judul"));
