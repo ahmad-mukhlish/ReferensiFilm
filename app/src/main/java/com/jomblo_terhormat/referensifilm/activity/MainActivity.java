@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final int LOADER_ID = 54;
     public static List<List<Film>> mFilms = null;
-    private ActionBar actionBar;
-    private LinearLayout loading;
+    private ActionBar mActionBar;
+    private LinearLayout mLoading;
 
 
 
@@ -53,11 +53,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         LinearLayout error = (LinearLayout) findViewById(R.id.error);
         error.setVisibility(View.GONE);
 
-        loading = (LinearLayout) findViewById(R.id.loading);
+        mLoading = (LinearLayout) findViewById(R.id.loading);
 
 
-        actionBar = getSupportActionBar();
-        actionBar.hide();
+        mActionBar = getSupportActionBar();
+        mActionBar.hide();
 
         if (isConnected) {
             LoaderManager loaderManager = getLoaderManager();
@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         } else {
             error.setVisibility(View.VISIBLE);
         }
-
 
     }
 
@@ -100,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     private void updateUI(List<List<Film>> list) {
-        actionBar.show();
-        loading.setVisibility(View.GONE);
+        mActionBar.show();
+        mLoading.setVisibility(View.GONE);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         FilmTabAdapter filmTabAdapter = new FilmTabAdapter(getSupportFragmentManager(), setTitle(), list);
         viewPager.setAdapter(filmTabAdapter);

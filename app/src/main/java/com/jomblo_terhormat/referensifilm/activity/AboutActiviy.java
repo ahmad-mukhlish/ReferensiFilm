@@ -16,45 +16,35 @@ public class AboutActiviy extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.abaout_activity);
+        super.setContentView(R.layout.abaut_activity);
 
         ImageButton fb = (ImageButton) findViewById(R.id.klikfb);
-        fb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ngelink("https://web.facebook.com/ahmadmukhlis.saputra");
-            }
-        });
+        fb.setOnClickListener(new linkButton("https://web.facebook.com/ahmadmukhlis.saputra"));
 
         ImageButton github = (ImageButton) findViewById(R.id.klikgithub);
-        github.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ngelink("https://github.com/ahmad-mukhlish");
-            }
-        });
+        github.setOnClickListener(new linkButton("https://github.com/ahmad-mukhlish"));
 
         ImageButton gplus = (ImageButton) findViewById(R.id.klikgplus);
-        gplus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ngelink("https://plus.google.com/u/0/116489913115605252616");
-            }
-        });
+        gplus.setOnClickListener(new linkButton("https://plus.google.com/u/0/116489913115605252616"));
 
         ImageView tmdb = (ImageView) findViewById(R.id.tmdb);
-        tmdb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ngelink(getString(R.string.link));
-            }
-        });
+        tmdb.setOnClickListener(new linkButton("https://www.themoviedb.org/"));
 
     }
 
-    private void ngelink(String url) {
-        Uri uriUrl = Uri.parse(url);
-        startActivity(new Intent(Intent.ACTION_VIEW, uriUrl));
 
+    private class linkButton implements View.OnClickListener {
+
+        private String mLink;
+
+        public linkButton(String link) {
+            this.mLink = link;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Uri uriUrl = Uri.parse(mLink);
+            startActivity(new Intent(Intent.ACTION_VIEW, uriUrl));
+        }
     }
 }
