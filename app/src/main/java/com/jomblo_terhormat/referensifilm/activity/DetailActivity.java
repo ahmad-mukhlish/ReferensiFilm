@@ -2,6 +2,7 @@ package com.jomblo_terhormat.referensifilm.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.View;
@@ -16,6 +17,10 @@ import com.jomblo_terhormat.referensifilm.R;
 import com.jomblo_terhormat.referensifilm.entity.Film;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by GOODWARE1 on 8/30/2017.
@@ -66,7 +71,10 @@ public class DetailActivity extends AppCompatActivity {
         judul.setText(bundle.getString("judul"));
         autoDirection(judul, 430);
 
-        tanggal.setText(bundle.getString("tanggal"));
+        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
+
+
+        tanggal.setText(getFormattedDate(bundle.getString("tanggal"), input));
         ratingBar.setRating(bundle.getFloat("rating"));
 
         rating.setText("Rating : " + bundle.getFloat("rating"));
@@ -88,5 +96,20 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+    private String getFormattedDate(String date, SimpleDateFormat sdf) {
+        SimpleDateFormat output = new SimpleDateFormat("dd MMMM yyyy");
+        Date oneWayTripDate = null;
+
+        try {
+            oneWayTripDate = sdf.parse(date);
+        } catch (java.text.ParseException e) {
+            Log.e("apa", "jelly", e);
+        }
+
+        DateFormat dayFormate = new SimpleDateFormat("EEEE");
+        String dayFromDate = dayFormate.format(oneWayTripDate);
+
+        return dayFromDate + ", " + output.format(oneWayTripDate);
+    }
 
 }
