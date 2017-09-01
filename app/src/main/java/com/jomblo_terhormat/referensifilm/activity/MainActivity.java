@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         LinearLayout error = (LinearLayout) findViewById(R.id.error);
         error.setVisibility(View.GONE);
 
+//        ActionBar actionBar = getActionBar() ;
+//        actionBar.hide();
         if (isConnected) {
             LoaderManager loaderManager = getLoaderManager();
             loaderManager.initLoader(LOADER_ID, null, this);
