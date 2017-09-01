@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final int LOADER_ID = 54;
     public static List<List<Film>> mFilms = null;
+    private ActionBar actionBar;
+    private LinearLayout loading;
+
 
 
     @Override
@@ -49,8 +53,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         LinearLayout error = (LinearLayout) findViewById(R.id.error);
         error.setVisibility(View.GONE);
 
-//        ActionBar actionBar = getActionBar() ;
-//        actionBar.hide();
+        loading = (LinearLayout) findViewById(R.id.loading);
+
+
+        actionBar = getSupportActionBar();
+        actionBar.hide();
+
         if (isConnected) {
             LoaderManager loaderManager = getLoaderManager();
             loaderManager.initLoader(LOADER_ID, null, this);
@@ -92,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     private void updateUI(List<List<Film>> list) {
+        actionBar.show();
+        loading.setVisibility(View.GONE);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         FilmTabAdapter filmTabAdapter = new FilmTabAdapter(getSupportFragmentManager(), setTitle(), list);
         viewPager.setAdapter(filmTabAdapter);
