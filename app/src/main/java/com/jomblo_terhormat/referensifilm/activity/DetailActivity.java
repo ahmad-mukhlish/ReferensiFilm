@@ -71,6 +71,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
         judul.setText(bundle.getString("judul"));
+        judul.setWidth(imageView.getWidth());
 
 
         SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
