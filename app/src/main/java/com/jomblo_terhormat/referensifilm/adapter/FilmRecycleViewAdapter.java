@@ -45,7 +45,7 @@ public class FilmRecycleViewAdapter extends RecyclerView.Adapter<FilmRecycleView
                 placeholder(R.drawable.film).
                 into(holder.mGambar);
 
-        holder.mJudul.setText(currentFilm.getmTitle());
+//        holder.mJudul.setText(currentFilm.getmTitle());
         holder.mItemView.setOnClickListener(new FilmListner(position));
 
     }
