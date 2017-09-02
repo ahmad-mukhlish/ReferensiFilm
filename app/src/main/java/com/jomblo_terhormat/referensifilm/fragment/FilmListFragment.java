@@ -3,6 +3,7 @@ package com.jomblo_terhormat.referensifilm.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,6 @@ import java.util.List;
 public class FilmListFragment extends Fragment {
 
 
-    private FilmRecycleViewAdapter mRecycleViewAdapter;
-
     public FilmListFragment() {
     }
 
@@ -33,9 +32,14 @@ public class FilmListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.film_list, container, false);
         List<Film> films = getArguments().getParcelableArrayList("key");
 
+        FilmRecycleViewAdapter filmRecycleViewAdapter =
+                new FilmRecycleViewAdapter(getContext(), films);
         RecyclerView recyclerView = rootView.findViewById(R.id.rvItems);
-        mRecycleViewAdapter = new FilmRecycleViewAdapter(getContext(), films);
-        recyclerView.setAdapter(mRecycleViewAdapter);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(filmRecycleViewAdapter);
 
         return rootView;
     }

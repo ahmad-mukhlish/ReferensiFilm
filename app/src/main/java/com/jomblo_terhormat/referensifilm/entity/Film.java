@@ -10,7 +10,7 @@ import android.os.Parcelable;
 public class Film implements Parcelable {
 
 
-    public static final String ROOT_IMAGE_PATH_POSTER = "http://image.tmdb.org/t/p/w154/";
+    public static final String ROOT_IMAGE_PATH_POSTER = "http://image.tmdb.org/t/p/w185/";
     public static final String ROOT_IMAGE_PATH_DETAIL = "http://image.tmdb.org/t/p/w600/";
     public static final String POPULAR = "https://api.themoviedb.org/3/movie/popular?api_key=459d687b181bb31b7f514ca0a00e01c8";
     public static final String TOP_RATED = "https://api.themoviedb.org/3/movie/top_rated?api_key=459d687b181bb31b7f514ca0a00e01c8";

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.jomblo_terhormat.referensifilm.R;
@@ -47,8 +46,6 @@ public class FilmRecycleViewAdapter extends RecyclerView.Adapter<FilmRecycleView
                 into(holder.mGambar);
 
         holder.mJudul.setText(currentFilm.getmTitle());
-        holder.mRatingBar.setRating(currentFilm.getmVote_average());
-        holder.mRatingNumber.setText("(" + currentFilm.getmVote_average() + ")");
         holder.mItemView.setOnClickListener(new FilmListner(position));
 
     }
@@ -62,16 +59,12 @@ public class FilmRecycleViewAdapter extends RecyclerView.Adapter<FilmRecycleView
 
         ImageView mGambar;
         TextView mJudul;
-        RatingBar mRatingBar;
-        TextView mRatingNumber;
         View mItemView;
 
         FilmViewHolder(View itemView) {
             super(itemView);
             mGambar = itemView.findViewById(R.id.gambar);
             mJudul = itemView.findViewById(R.id.judul);
-            mRatingBar = itemView.findViewById(R.id.rating);
-            mRatingNumber = itemView.findViewById(R.id.rating_number);
             mItemView = itemView;
 
         }
