@@ -92,7 +92,7 @@ public class FilmRecycleViewAdapter extends RecyclerView.Adapter<FilmRecycleView
             Film clickedFilm = mFilms.get(position);
             Intent intent = new Intent(mContext, DetailActivity.class);
             intent.putExtra("gambar", clickedFilm.getmBackdrop_path());
-            intent.putExtra("mJudul", clickedFilm.getmTitle());
+            intent.putExtra("judul", clickedFilm.getmTitle());
             intent.putExtra("deskripsi", clickedFilm.getmOverview());
             intent.putExtra("tanggal", clickedFilm.getmRelease_date());
             intent.putExtra("rating", clickedFilm.getmVote_average());

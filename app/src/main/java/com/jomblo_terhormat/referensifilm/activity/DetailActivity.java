@@ -2,9 +2,9 @@ package com.jomblo_terhormat.referensifilm.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Display;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -36,17 +36,20 @@ public class DetailActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
 
-        TextView judul = (TextView) findViewById(R.id.judul);
+        final TextView judul = (TextView) findViewById(R.id.judul);
         TextView tanggal = (TextView) findViewById(R.id.tanggal);
         TextView rating = (TextView) findViewById(R.id.rating_number);
         TextView deskripsi = (TextView) findViewById(R.id.deskripsi);
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rating);
+        ImageView imageView = (ImageView) findViewById(R.id.gambar);
 
-        final ImageView imageView = (ImageView) findViewById(R.id.gambar);
-        imageView.setVisibility(View.GONE);
+        final CardView cardView = (CardView) findViewById(R.id.detail_card);
+        cardView.setVisibility(View.GONE);
+
 
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
+
 
         Picasso.with(this).
                 load(Film.ROOT_IMAGE_PATH_DETAIL + bundle.getString("gambar")).
@@ -55,21 +58,20 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess() {
                         progressBar.setVisibility(View.GONE);
-                        imageView.setVisibility(View.VISIBLE);
-                        autoDirection(imageView, 80);
+                        cardView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onError() {
                         progressBar.setVisibility(View.GONE);
-                        autoDirection(imageView, 0);
-                        imageView.setVisibility(View.VISIBLE);
+                        cardView.setVisibility(View.VISIBLE);
+                        autoDirection(judul, 20);
                     }
                 });
 
 
         judul.setText(bundle.getString("judul"));
-        autoDirection(judul, 430);
+
 
         SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -82,17 +84,14 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    private void autoDirection(View view, int top) {
+    private void autoDirection(View view, int bottom) {
 
         ViewGroup.MarginLayoutParams marginParams =
                 (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 
-        if (display.getRotation() == Surface.ROTATION_90
-                || display.getRotation() == Surface.ROTATION_270) {
-            marginParams.setMargins(marginParams.leftMargin, top,
-                    marginParams.rightMargin, marginParams.bottomMargin);
-        }
+        marginParams.setMargins(marginParams.leftMargin, marginParams.topMargin,
+                marginParams.rightMargin, bottom);
 
     }
 
