@@ -16,7 +16,7 @@ public class AboutActiviy extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.abaut_activity);
+        super.setContentView(R.layout.about_activity);
 
         ImageButton fb = (ImageButton) findViewById(R.id.klikfb);
         fb.setOnClickListener(new linkButton("https://web.facebook.com/ahmadmukhlis.saputra"));
