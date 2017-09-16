@@ -31,7 +31,7 @@ public class DetailActivity extends AppCompatActivity {
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rating);
 
         Picasso.with(this).
-                load(Film.rootImagePathDetail + bundle.getString("gambar")).
+                load(Film.ROOT_IMAGE_PATH_DETAIL + bundle.getString("gambar")).
                 placeholder(R.drawable.film)
                 .into(imageView);
         autoDirection(imageView, 80);
