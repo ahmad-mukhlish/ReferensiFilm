@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(LOADER_ID, null, this);
-
+        
         filmRecycleViewAdapter = new FilmRecycleViewAdapter(this, new ArrayList<Film>());
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
@@ -38,17 +38,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<Film>> onCreateLoader(int i, Bundle bundle) {
-        return new FilmLoader(this,Film.TOP_RATED) ;
+        if (mFilms == null) {
+            return new FilmLoader(this,Film.UPCOMING);
+        } else
+            return null;
     }
 
     @Override
     public void onLoadFinished(Loader<List<Film>> loader, List<Film> films) {
-//        filmListAdapter.clear();
-//        filmListAdapter.addAll(films);
+        if (mFilms == null) {
+            mFilms = films;
+        }
+
     }
 
     @Override
     public void onLoaderReset(Loader<List<Film>> loader) {
-//        filmListAdapter.clear();
     }
 }
