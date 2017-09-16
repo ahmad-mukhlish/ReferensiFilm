@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final int LOADER_ID = 54;
     private FilmRecycleViewAdapter filmRecycleViewAdapter;
-
-
+    private List<Film> mFilms = null;
+    private RecyclerView recyclerView;
 
 
     @Override
@@ -28,27 +28,35 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(LOADER_ID, null, this);
+        recyclerView = (RecyclerView) findViewById(R.id.rvItems);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
     }
 
 
     @Override
     public Loader<List<Film>> onCreateLoader(int i, Bundle bundle) {
-            return new FilmLoader(this,Film.UPCOMING);
+        return new FilmLoader(this, Film.UPCOMING);
 
     }
 
     @Override
     public void onLoadFinished(Loader<List<Film>> loader, List<Film> films) {
-        filmRecycleViewAdapter = new FilmRecycleViewAdapter(this, films);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+        if (mFilms == null) {
+            mFilms = films;
+        }
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(filmRecycleViewAdapter);
+        updateUI(mFilms);
     }
 
     @Override
     public void onLoaderReset(Loader<List<Film>> loader) {
     }
+
+    public void updateUI(List<Film> filmList) {
+        filmRecycleViewAdapter = new FilmRecycleViewAdapter(this, filmList);
+        recyclerView.setAdapter(filmRecycleViewAdapter);
+    }
+
 }
