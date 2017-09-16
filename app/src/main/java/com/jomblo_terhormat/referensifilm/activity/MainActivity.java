@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoadFinished(Loader<List<Film>> loader, List<Film> films) {
         filmRecycleViewAdapter = new FilmRecycleViewAdapter(this, films);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
