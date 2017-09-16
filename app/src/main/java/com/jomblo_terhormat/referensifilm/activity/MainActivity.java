@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final int LOADER_ID = 54;
     private FilmRecycleViewAdapter filmRecycleViewAdapter;
-    private List<Film> mFilms ;
+
 
 
 
@@ -28,32 +28,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(LOADER_ID, null, this);
-        
-        filmRecycleViewAdapter = new FilmRecycleViewAdapter(this, mFilms);
+    }
+
+
+    @Override
+    public Loader<List<Film>> onCreateLoader(int i, Bundle bundle) {
+            return new FilmLoader(this,Film.UPCOMING);
+
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Film>> loader, List<Film> films) {
+        filmRecycleViewAdapter = new FilmRecycleViewAdapter(this, films);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(filmRecycleViewAdapter);
-
-    }
-
-
-    @Override
-    public Loader<List<Film>> onCreateLoader(int i, Bundle bundle) {
-        if (mFilms == null) {
-            return new FilmLoader(this,Film.UPCOMING);
-        } else
-            return null;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<List<Film>> loader, List<Film> films) {
-        if (mFilms == null) {
-            mFilms = films;
-        }
-
     }
 
     @Override
