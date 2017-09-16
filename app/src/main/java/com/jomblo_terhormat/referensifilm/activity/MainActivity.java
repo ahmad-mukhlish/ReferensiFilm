@@ -12,13 +12,13 @@ import com.jomblo_terhormat.referensifilm.adapter.FilmRecycleViewAdapter;
 import com.jomblo_terhormat.referensifilm.entity.Film;
 import com.jomblo_terhormat.referensifilm.networking.FilmLoader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Film>> {
 
     private static final int LOADER_ID = 54;
     private FilmRecycleViewAdapter filmRecycleViewAdapter;
+    private List<Film> mFilms ;
 
 
 
@@ -29,9 +29,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(LOADER_ID, null, this);
         
-        filmRecycleViewAdapter = new FilmRecycleViewAdapter(this, new ArrayList<Film>());
+        filmRecycleViewAdapter = new FilmRecycleViewAdapter(this, mFilms);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(filmRecycleViewAdapter);
 
     }
 
