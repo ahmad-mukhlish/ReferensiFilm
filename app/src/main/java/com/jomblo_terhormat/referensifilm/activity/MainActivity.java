@@ -32,6 +32,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         loaderManager.initLoader(LOADER_ID, null, this);
         ListView listView = (ListView) findViewById(R.id.list);
         filmListAdapter = new FilmListAdapter(this,new ArrayList<Film>());
+
+//        FilmRecycleViewAdapter filmRecycleViewAdapter =
+//                new FilmRecycleViewAdapter(getContext(), films);
+//        RecyclerView recyclerView = rootView.findViewById(R.id.rvItems);
+//        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+
+
         listView.setAdapter(filmListAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
