@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -27,6 +28,8 @@ import java.util.List;
 
 import ru.shmakinv.android.widget.material.searchview.SearchView;
 
+import static com.jomblo_terhormat.referensifilm.R.id.error;
+
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Film>> {
 
     private static final int LOADER_ID = 54;
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private ActionBar mActionBar;
     private LinearLayout mLoading;
     private SearchView mSearchView;
+    private SwipeRefreshLayout swipe;
 
 
     @Override
@@ -43,8 +47,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        swipe = (SwipeRefreshLayout) findViewById(R.id.swipe);
+        mLoading = (LinearLayout) findViewById(R.id.loading);
         mRecyclerView = (RecyclerView) findViewById(R.id.rvItems);
+        LinearLayout error = (LinearLayout) findViewById(R.id.error);
+
+
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -55,10 +63,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         NetworkInfo activeNetwork = mConnectivityManager.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
-        LinearLayout error = (LinearLayout) findViewById(R.id.error);
         error.setVisibility(View.GONE);
-
-        mLoading = (LinearLayout) findViewById(R.id.loading);
 
 
         mActionBar = getSupportActionBar();
@@ -79,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 List<Film> selectedFilms = new ArrayList<Film>();
                 for (Film currentFilm : mFilms) {
                     if (currentFilm.getmTitle().toLowerCase().contains(query.toLowerCase())) {
-                        selectedFilms.add(currentFilm) ;
+                        selectedFilms.add(currentFilm);
                     }
                 }
 
@@ -90,6 +95,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onQueryTextChanged(@NonNull String newText) {
 
+            }
+        });
+
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mFilmRecycleViewAdapter.setFilter(mFilms);
+                swipe.setRefreshing(false);
             }
         });
     }
