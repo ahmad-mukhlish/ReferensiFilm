@@ -14,6 +14,7 @@ import com.jomblo_terhormat.referensifilm.activity.DetailActivity;
 import com.jomblo_terhormat.referensifilm.entity.Film;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -92,6 +93,13 @@ public class FilmRecycleViewAdapter extends RecyclerView.Adapter<FilmRecycleView
             intent.putExtra("cadangan", clickedFilm.getmPoster_path());
             view.getContext().startActivity(intent);
         }
+    }
+
+    private void setFilter(List<Film> selectedFilms) {
+
+        mFilms = new ArrayList<Film>();
+        mFilms.addAll(selectedFilms);
+        notifyDataSetChanged();
     }
 
 
