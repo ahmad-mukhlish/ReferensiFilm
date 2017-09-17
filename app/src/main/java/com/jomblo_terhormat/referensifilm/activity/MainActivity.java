@@ -61,4 +61,25 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         recyclerView.setAdapter(filmRecycleViewAdapter);
     }
 
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater menuInflater = getMenuInflater();
+//        menuInflater.inflate(R.menu.menu, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == R.id.tentang)
+//            startActivity(new Intent(MainActivity.this, AboutActiviy.class));
+//        return super.onOptionsItemSelected(item);
+//    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mFilms = null;
+    }
+
 }
