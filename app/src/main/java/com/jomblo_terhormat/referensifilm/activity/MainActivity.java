@@ -40,18 +40,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
 
+        recyclerView = (RecyclerView) findViewById(R.id.rvItems);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+
         ConnectivityManager mConnectivityManager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = mConnectivityManager.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
-//        LinearLayout error = (LinearLayout) findViewById(R.id.error);
-//        error.setVisibility(View.GONE);
-//
-//        mLoading = (LinearLayout) findViewById(R.id.loading);
-//
-//
+        LinearLayout error = (LinearLayout) findViewById(R.id.error);
+        error.setVisibility(View.GONE);
+
+        mLoading = (LinearLayout) findViewById(R.id.loading);
+
+
         mActionBar = getSupportActionBar();
         mActionBar.hide();
 
@@ -59,17 +64,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             LoaderManager loaderManager = getLoaderManager();
             loaderManager.initLoader(LOADER_ID, null, this);
         } else {
-//            error.setVisibility(View.VISIBLE);
+            error.setVisibility(View.VISIBLE);
         }
 
 
-        recyclerView = (RecyclerView) findViewById(R.id.rvItems);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
 
-        LoaderManager loaderManager = getLoaderManager();
-        loaderManager.initLoader(LOADER_ID, null, this);
     }
 
 
