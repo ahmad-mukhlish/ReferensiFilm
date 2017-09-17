@@ -7,12 +7,15 @@ import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.jomblo_terhormat.referensifilm.R;
 import com.jomblo_terhormat.referensifilm.adapter.FilmRecycleViewAdapter;
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private FilmRecycleViewAdapter filmRecycleViewAdapter;
     private List<Film> mFilms = null;
     private RecyclerView recyclerView;
+    private ActionBar mActionBar;
+    private LinearLayout mLoading;
 
 
     @Override
@@ -47,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 //        mLoading = (LinearLayout) findViewById(R.id.loading);
 //
 //
-//        mActionBar = getSupportActionBar();
-//        mActionBar.hide();
+        mActionBar = getSupportActionBar();
+        mActionBar.hide();
 
         if (isConnected) {
             LoaderManager loaderManager = getLoaderManager();
@@ -88,8 +93,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     public void updateUI(List<Film> filmList) {
-//        mActionBar.show();
-//        mLoading.setVisibility(View.GONE);
+        mActionBar.show();
+        mLoading.setVisibility(View.GONE);
         filmRecycleViewAdapter = new FilmRecycleViewAdapter(this, filmList);
         recyclerView.setAdapter(filmRecycleViewAdapter);
     }
