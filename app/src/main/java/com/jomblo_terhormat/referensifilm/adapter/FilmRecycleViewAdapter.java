@@ -95,7 +95,7 @@ public class FilmRecycleViewAdapter extends RecyclerView.Adapter<FilmRecycleView
         }
     }
 
-    private void setFilter(List<Film> selectedFilms) {
+    public void setFilter(List<Film> selectedFilms) {
 
         mFilms = new ArrayList<Film>();
         mFilms.addAll(selectedFilms);

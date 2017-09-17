@@ -7,6 +7,7 @@ import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,16 +22,20 @@ import com.jomblo_terhormat.referensifilm.adapter.FilmRecycleViewAdapter;
 import com.jomblo_terhormat.referensifilm.entity.Film;
 import com.jomblo_terhormat.referensifilm.networking.FilmLoader;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import ru.shmakinv.android.widget.material.searchview.SearchView;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Film>> {
 
     private static final int LOADER_ID = 54;
-    private FilmRecycleViewAdapter filmRecycleViewAdapter;
+    private FilmRecycleViewAdapter mFilmRecycleViewAdapter;
     private List<Film> mFilms = null;
-    private RecyclerView recyclerView;
+    private RecyclerView mRecyclerView;
     private ActionBar mActionBar;
     private LinearLayout mLoading;
+    private SearchView mSearchView;
 
 
     @Override
@@ -39,10 +44,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
 
-        recyclerView = (RecyclerView) findViewById(R.id.rvItems);
+        mRecyclerView = (RecyclerView) findViewById(R.id.rvItems);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(layoutManager);
 
         ConnectivityManager mConnectivityManager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -66,6 +71,27 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             error.setVisibility(View.VISIBLE);
         }
 
+        mSearchView = SearchView.getInstance(this);
+        mSearchView.setSuggestionAdapter(mFilmRecycleViewAdapter);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(@NonNull String query) {
+                List<Film> selectedFilms = new ArrayList<Film>();
+                for (Film currentFilm : mFilms) {
+                    if (currentFilm.getmTitle().toLowerCase().contains(query.toLowerCase())) {
+                        selectedFilms.add(currentFilm) ;
+                    }
+                }
+
+                mFilmRecycleViewAdapter.setFilter(selectedFilms);
+                return true;
+            }
+
+            @Override
+            public void onQueryTextChanged(@NonNull String newText) {
+
+            }
+        });
     }
 
 
@@ -91,22 +117,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void updateUI(List<Film> filmList) {
         mActionBar.show();
         mLoading.setVisibility(View.GONE);
-        filmRecycleViewAdapter = new FilmRecycleViewAdapter(this, filmList);
-        recyclerView.setAdapter(filmRecycleViewAdapter);
+        mFilmRecycleViewAdapter = new FilmRecycleViewAdapter(this, filmList);
+        mRecyclerView.setAdapter(mFilmRecycleViewAdapter);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.search);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.tentang)
             startActivity(new Intent(MainActivity.this, AboutActivity.class));
+        else if (item.getItemId() == R.id.search)
+            mSearchView.onOptionsItemSelected(getFragmentManager(), item);
         return super.onOptionsItemSelected(item);
     }
 
