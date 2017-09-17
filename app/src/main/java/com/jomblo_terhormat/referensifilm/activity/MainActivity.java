@@ -28,18 +28,19 @@ import java.util.List;
 
 import ru.shmakinv.android.widget.material.searchview.SearchView;
 
-import static com.jomblo_terhormat.referensifilm.R.id.error;
-
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Film>> {
 
     private static final int LOADER_ID = 54;
+    private String mLink ;
     private FilmRecycleViewAdapter mFilmRecycleViewAdapter;
     private List<Film> mFilms = null;
     private RecyclerView mRecyclerView;
     private ActionBar mActionBar;
     private LinearLayout mLoading;
     private SearchView mSearchView;
-    private SwipeRefreshLayout swipe;
+    private SwipeRefreshLayout mSwipe;
+    private LoaderManager mLoaderManager;
+
 
 
     @Override
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        swipe = (SwipeRefreshLayout) findViewById(R.id.swipe);
+        mSwipe = (SwipeRefreshLayout) findViewById(R.id.swipe);
         mLoading = (LinearLayout) findViewById(R.id.loading);
         mRecyclerView = (RecyclerView) findViewById(R.id.rvItems);
         LinearLayout error = (LinearLayout) findViewById(R.id.error);
@@ -70,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mActionBar.hide();
 
         if (isConnected) {
-            LoaderManager loaderManager = getLoaderManager();
-            loaderManager.initLoader(LOADER_ID, null, this);
+            mLoaderManager = getLoaderManager();
+            mLoaderManager.initLoader(LOADER_ID, null, this);
         } else {
             error.setVisibility(View.VISIBLE);
         }
@@ -98,13 +99,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
-        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mFilmRecycleViewAdapter.setFilter(mFilms);
-                swipe.setRefreshing(false);
+                mSwipe.setRefreshing(false);
             }
         });
+
     }
 
 
@@ -143,10 +145,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.tentang)
-            startActivity(new Intent(MainActivity.this, AboutActivity.class));
-        else if (item.getItemId() == R.id.search)
-            mSearchView.onOptionsItemSelected(getFragmentManager(), item);
+        switch (item.getItemId()) {
+
+            case R.id.tentang:
+                startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                break;
+            case R.id.search:
+                mSearchView.onOptionsItemSelected(getFragmentManager(), item);
+                break;
+            case R.id.popular:
+                break;
+            case R.id.top_rated:
+                break;
+            case R.id.upcoming:
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -3,8 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/tentang"
+        android:id="@+id/popular"
         android:orderInCategory="0"
+        android:title="popular"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/top_rated"
+        android:orderInCategory="1"
+        android:title="top rated"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/upcoming"
+        android:orderInCategory="2"
+        android:title="coming soon"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/tentang"
+        android:orderInCategory="3"
         android:title="tentang"
         app:showAsAction="never" />
 
