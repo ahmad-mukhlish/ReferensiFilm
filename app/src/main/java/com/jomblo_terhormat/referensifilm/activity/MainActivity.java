@@ -7,7 +7,6 @@ import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
 
 import com.jomblo_terhormat.referensifilm.R;
 import com.jomblo_terhormat.referensifilm.adapter.FilmRecycleViewAdapter;
@@ -25,8 +23,7 @@ import com.jomblo_terhormat.referensifilm.networking.FilmLoader;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Film>>,
-        SearchView.OnQueryTextListener {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Film>> {
 
     private static final int LOADER_ID = 54;
     private FilmRecycleViewAdapter filmRecycleViewAdapter;
@@ -103,8 +100,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         MenuItem menuItem = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        searchView.setOnQueryTextListener(this );
         return true;
     }
 
@@ -121,13 +116,4 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mFilms = null;
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String s) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String s) {
-        return false;
-    }
 }
