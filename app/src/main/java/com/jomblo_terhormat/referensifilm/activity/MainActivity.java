@@ -7,7 +7,7 @@ import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,17 +16,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
 
 import com.jomblo_terhormat.referensifilm.R;
 import com.jomblo_terhormat.referensifilm.adapter.FilmRecycleViewAdapter;
 import com.jomblo_terhormat.referensifilm.entity.Film;
 import com.jomblo_terhormat.referensifilm.networking.FilmLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Film>>,
-        SearchView.OnQueryTextListener {
+        ru.shmakinv.android.widget.material.searchview.SearchView.OnQueryTextListener {
 
     private static final int LOADER_ID = 54;
     private FilmRecycleViewAdapter filmRecycleViewAdapter;
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private RecyclerView recyclerView;
     private ActionBar mActionBar;
     private LinearLayout mLoading;
+    ru.shmakinv.android.widget.material.searchview.SearchView searchView;
 
 
     @Override
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             error.setVisibility(View.VISIBLE);
         }
 
+        searchView = ru.shmakinv.android.widget.material.searchview.SearchView.getInstance(this);
+        searchView.setOnQueryTextListener(this);
     }
 
 
@@ -102,16 +105,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        searchView.setOnQueryTextListener(this );
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.tentang)
             startActivity(new Intent(MainActivity.this, AboutActivity.class));
+        else if (item.getItemId() == R.id.search)
+            return searchView.onOptionsItemSelected(getFragmentManager(), item);
         return super.onOptionsItemSelected(item);
     }
 
@@ -122,12 +124,38 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public boolean onQueryTextSubmit(String s) {
-        return false;
+    public boolean onQueryTextSubmit(String typed) {
+        typed = typed.toLowerCase();
+        List<Film> selectedFilms = new ArrayList<Film>();
+        for (Film currentFilm : mFilms) {
+
+            String title = currentFilm.getmTitle().toLowerCase();
+            if (title.contains(typed)) {
+                selectedFilms.add(currentFilm);
+            }
+
+        }
+
+        filmRecycleViewAdapter.setFilter(selectedFilms);
+        return true ;
     }
 
     @Override
-    public boolean onQueryTextChange(String s) {
-        return false;
+    public void onQueryTextChanged(@NonNull String typed) {
+        typed = typed.toLowerCase();
+        List<Film> selectedFilms = new ArrayList<Film>();
+        for (Film currentFilm : mFilms) {
+
+            String title = currentFilm.getmTitle().toLowerCase();
+            if (title.contains(typed)) {
+                selectedFilms.add(currentFilm);
+            }
+
+        }
+
+        filmRecycleViewAdapter.setFilter(selectedFilms);
+
     }
+
+
 }
