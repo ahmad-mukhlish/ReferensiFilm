@@ -67,8 +67,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             error.setVisibility(View.VISIBLE);
         }
 
-
-
     }
 
 
