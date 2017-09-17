@@ -1,11 +1,15 @@
 package com.jomblo_terhormat.referensifilm.activity;
 
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.jomblo_terhormat.referensifilm.R;
 import com.jomblo_terhormat.referensifilm.adapter.FilmRecycleViewAdapter;
@@ -62,19 +66,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater menuInflater = getMenuInflater();
-//        menuInflater.inflate(R.menu.menu, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == R.id.tentang)
-//            startActivity(new Intent(MainActivity.this, AboutActiviy.class));
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.tentang)
+            startActivity(new Intent(MainActivity.this, AboutActivity.class));
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onDestroy() {
