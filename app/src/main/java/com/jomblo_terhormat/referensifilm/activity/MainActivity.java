@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     public void updateUI(List<Film> filmList) {
+//        mActionBar.show();
+//        mLoading.setVisibility(View.GONE);
         filmRecycleViewAdapter = new FilmRecycleViewAdapter(this, filmList);
         recyclerView.setAdapter(filmRecycleViewAdapter);
     }
